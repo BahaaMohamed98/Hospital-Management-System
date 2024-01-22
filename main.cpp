@@ -43,8 +43,9 @@ int main() {
             break;
         case 3:
             system("cls");
-            cout << "Enter patient's name:";
-            cin >> name;
+            cin.ignore();
+            cout << "Enter patient's name: ";
+            getline(cin,name);
             cout << "Searching...\n";
             if (search(name) != -1) {
                 cout << "Patient found!\n\n";
@@ -56,14 +57,15 @@ int main() {
         case 4:
             int choice_to_update;
             system("cls");
-            cout << "Enter patient's name:";
-            cin >> name;
+            cin.ignore();
+            cout << "Enter patient's name: ";
+            getline(cin,name);
             cout << "\nSearching...\n";
             if (search(name) != -1) {
                 int index = search(name);
                 cout << "\nPatient found!\n";
                 cout << "choose what to update:\n";
-                cout << "[1] Age\n[2] Name\n[3] Gender\n[4] Disease\n";
+                cout << "\n[1] Age\n[2] Name\n[3] Gender\n[4] Disease\n";
                 cin >> choice_to_update;
                 system("cls");
                 switch (choice_to_update) {
@@ -74,8 +76,9 @@ int main() {
                         cout << "\nChanged successfully!\n";
                         break;
                     case 2:
+                        cin.ignore();
                         cout << "Enter new name: ";
-                        cin >> name;
+                        getline(cin,name);
                         name[0]=char(toupper(name[0]));
                         records[index].name = name;
                         cout << "\nChanged successfully!\n";
@@ -102,8 +105,9 @@ int main() {
             break;
         case 5:
             system("cls");
-            cout << "Enter patient's name:";
-            cin >> name;
+            cin.ignore();
+            cout << "Enter patient's name: ";
+            getline(cin,name);
             cout << "Searching...\n";
             char confirmation;
             if (search(name) != -1) {
@@ -171,7 +175,7 @@ void delete_record(int index) {
 }
 
 inline void menu() {
-    cout << "[1] Return to main menu!\n[0] Exit\n";
+    cout << "\n[1] Return to main menu!\n[0] Exit\n";
     cin >> R;
     if (R) {
         system("cls");
@@ -188,15 +192,15 @@ void patient_input_details() {
     system("cls");
     cout << "\nEnter patient's details:\n";
     cin.ignore();
-    cout << "Name:";
+    cout << "Name: ";
     getline(cin,name);
     name[0]=char(toupper(name[0]));
-    cout << "Age:";
+    cout << "Age: ";
     cin >> age;
     cin.ignore();
-    cout << "Disease:";
+    cout << "Disease: ";
     getline(cin,disease);
-    cout << "gender[M/F]:";
+    cout << "gender[M/F]: ";
     cin >> gender;
     gender=(gender[0]=='m'?"Male":"Female");
 
