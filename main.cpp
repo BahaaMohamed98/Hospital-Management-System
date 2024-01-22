@@ -2,7 +2,6 @@
 #include <vector>
 
 using namespace std;
-
 struct patient {
     int age{};
     string name;
@@ -21,14 +20,11 @@ void display(int index);
 int search(string &name);
 
 void delete_record(int index);
-
-void patient_input_details();
-
 inline void menu();
 
 int main() {
     int op_num, age;
-    string name, disease;
+    string name, disease, date;
     char gender;
     system("cls");
     cout << "Welcome!\n\n";
@@ -37,7 +33,17 @@ int main() {
     cin >> op_num;
     switch (op_num) {
         case 1:
-            patient_input_details();
+            system("cls");
+            cout << "\nEnter patient's details:\n";
+            cout << "Name:";
+            cin >> name;
+            cout << "Age:";
+            cin >> age;
+            cout << "Disease:";
+            cin >> disease;
+            cout << "gender[M/F]:";
+            cin >> gender;
+            add_record(age, name, disease, gender);
             break;
         case 2:
             system("cls");
@@ -48,7 +54,7 @@ int main() {
             cout << "Enter patient's name:";
             cin >> name;
             cout << "Searching...\n";
-            if (search(name)) {
+            if (search(name)!=-1) {
                 cout << "Patient found!\n\n";
                 display(search(name));
             } else
@@ -61,7 +67,7 @@ int main() {
             cout << "Enter patient's name:";
             cin >> name;
             cout << "\nSearching...\n";
-            if (search(name)) {
+            if (search(name)!=-1) {
                 int index = search(name);
                 cout << "\nPatient found!\n";
                 cout << "choose what to update:\n";
@@ -73,31 +79,32 @@ int main() {
                         cout << "Enter new age: ";
                         cin >> age;
                         records[index].age = age;
-                        cout << "\nChanged successfully!\n";
+                        cout<<"\nChanged successfully!\n";
                         break;
                     case 2:
                         cout << "Enter new name: ";
                         cin >> name;
                         records[index].name = name;
-                        cout << "\nChanged successfully!\n";
+                        cout<<"\nChanged successfully!\n";
                         break;
                     case 3:
                         cout << "Enter new gender: ";
                         cin >> gender;
                         records[index].gender = gender;
-                        cout << "\nChanged successfully!\n";
+                        cout<<"\nChanged successfully!\n";
                         break;
                     case 4:
                         cout << "Enter new disease: ";
                         cin >> disease;
                         records[index].disease = disease;
-                        cout << "\nChanged successfully!\n";
+                        cout<<"\nChanged successfully!\n";
                         break;
                     default:
                         cout << "Enter a valid operation!\n";
                         return 0;
                 }
-            } else
+            }
+            else
                 cout << "Patient not found!\n";
             menu();
             break;
@@ -107,18 +114,18 @@ int main() {
             cin >> name;
             cout << "Searching...\n";
             char confirmation;
-
-            if (search(name) != -1) {
+            if (search(name)!=-1) {
                 cout << "Patient found!\n";
                 cout << "Are you sure you want to delete this record?[Y/N]:";
                 cin >> confirmation;
-                if (confirmation == 'y' || confirmation == 'Y') {
-                    int index = search(name);
+                if (confirmation=='y' || confirmation=='Y') {
+                    int index=search(name);
                     delete_record(index);
                     cout << "\nRecord deleted successfully!\n\n";
                 }
                 menu();
-            } else
+            }
+            else
                 cout << "Patient not found!\n";
             menu();
             break;
@@ -142,9 +149,9 @@ void add_record(int &age, string &name, string &disease, char &gender) {
 
 void display_all() {
     system("cls");
-    if (records.empty()) cout << "No records saved!\n\n";
-    else {
-        for (const auto &x: records) {
+    if(records.empty()) cout<<"No records saved!\n\n";
+    else{
+        for (const auto&x: records) {
             cout << "====================================";
             cout << "\nPatient's Name:" << x.name;
             cout << "\nPatient's Age:" << x.age;
@@ -179,31 +186,12 @@ int search(string &name) {
 void delete_record(int index) {
     records.erase(records.begin() + index);
 }
-
-inline void menu() {
-    cout << "[1] Return to main menu!\n[0] Exit\n";
-    cin >> R;
+inline void menu(){
+    cout<<"[1] Return to main menu!\n[0] Exit\n";cin>>R;
     if (R) {
         system("cls");
         main();
-    } else
+    }
+    else
         exit(0);
-}
-
-void patient_input_details() {
-    int age;
-    string name, disease;
-    char gender;
-
-    system("cls");
-    cout << "\nEnter patient's details:\n";
-    cout << "Name:";
-    cin >> name;
-    cout << "Age:";
-    cin >> age;
-    cout << "Disease:";
-    cin >> disease;
-    cout << "gender[M/F]:";
-    cin >> gender;
-    add_record(age, name, disease, gender);
 }
