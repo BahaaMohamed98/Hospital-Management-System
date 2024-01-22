@@ -122,7 +122,7 @@ int main() {
             menu();
             break;
         case 6:
-            return 0;
+            exit(0);
         default:
             cout << "Choose valid operation!";
             return 0;
