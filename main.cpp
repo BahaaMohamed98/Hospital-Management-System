@@ -1,18 +1,16 @@
 #include <iostream>
 #include <vector>
-
+#include <string>
 using namespace std;
 
 struct patient {
-    int age{};
+    int age;
     string name;
     string disease;
-    char gender{};
+    string gender;
 };
 vector<patient> records;
 bool R;
-
-void add_record(int &age, string &name, string &disease, char &gender);
 
 void display_all();
 
@@ -27,15 +25,15 @@ void patient_input_details();
 inline void menu();
 
 int main() {
-    int op_num, age;
+    int operator_number, age;
     string name, disease;
-    char gender;
+    string gender;
     system("cls");
     cout << "Welcome!\n\n";
     cout << "[1] Add new patient record\n[2] View all patient records\n[3] Search patient record\n"
-            "[4] Update patient record\n[5] Delete patient record\n [6] Exit\n\nchoose an operation:";
-    cin >> op_num;
-    switch (op_num) {
+            "[4] Update patient record\n[5] Delete patient record\n[6] Exit\n\nchoose an operation:";
+    cin >> operator_number;
+    switch (operator_number) {
         case 1:
             patient_input_details();
             break;
@@ -78,13 +76,14 @@ int main() {
                     case 2:
                         cout << "Enter new name: ";
                         cin >> name;
+                        name[0]=char(toupper(name[0]));
                         records[index].name = name;
                         cout << "\nChanged successfully!\n";
                         break;
                     case 3:
                         cout << "Enter new gender: ";
                         cin >> gender;
-                        records[index].gender = gender;
+                        records[index].gender = (gender[0]=='M'?"Male":"Female");
                         cout << "\nChanged successfully!\n";
                         break;
                     case 4:
@@ -130,25 +129,16 @@ int main() {
     main();
 }
 
-void add_record(int &age, string &name, string &disease, char &gender) {
-    patient newPatient;
-    newPatient.age = age;
-    newPatient.name = name;
-    newPatient.disease = disease;
-    newPatient.gender = gender;
-    records.push_back(newPatient);
-}
-
 void display_all() {
     system("cls");
     if (records.empty()) cout << "No records saved!\n\n";
     else {
         for (const auto &x: records) {
             cout << "====================================";
-            cout << "\nPatient's Name:" << x.name;
-            cout << "\nPatient's Age:" << x.age;
-            cout << "\nPatient's Disease:" << x.disease;
-            cout << "\nPatient's Gender:" << x.gender;
+            cout << "\nPatient's Name: " << x.name;
+            cout << "\nPatient's Age: " << x.age;
+            cout << "\nPatient's Disease: " << x.disease;
+            cout << "\nPatient's Gender: " << x.gender;
             cout << "\n====================================\n";
         }
     }
@@ -158,15 +148,16 @@ void display_all() {
 void display(int index) {
     system("cls");
     cout << "====================================";
-    cout << "\nPatient's Name:" << records[index].name;
-    cout << "\nPatient's Age:" << records[index].age;
-    cout << "\nPatient's Disease:" << records[index].disease;
-    cout << "\nPatient's Gender:" << records[index].gender;
+    cout << "\nPatient's Name: " << records[index].name;
+    cout << "\nPatient's Age: " << records[index].age;
+    cout << "\nPatient's Disease: " << records[index].disease;
+    cout << "\nPatient's Gender: " << records[index].gender;
     cout << "\n====================================\n";
     menu();
 }
 
 int search(string &name) {
+    name[0]=char(toupper(name[0]));
     for (int i = 0; i < records.size(); i++) {
         if (records[i].name == name) {
             return i;
@@ -192,17 +183,23 @@ inline void menu() {
 void patient_input_details() {
     int age;
     string name, disease;
-    char gender;
+    string gender;
 
     system("cls");
     cout << "\nEnter patient's details:\n";
+    cin.ignore();
     cout << "Name:";
-    cin >> name;
+    getline(cin,name);
+    name[0]=char(toupper(name[0]));
     cout << "Age:";
     cin >> age;
+    cin.ignore();
     cout << "Disease:";
-    cin >> disease;
+    getline(cin,disease);
     cout << "gender[M/F]:";
     cin >> gender;
-    add_record(age, name, disease, gender);
+    gender=(gender[0]=='m'?"Male":"Female");
+
+    patient newPatient = {age, name, disease, gender};
+    records.push_back(newPatient);
 }
