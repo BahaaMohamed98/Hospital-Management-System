@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+
 using namespace std;
 
 struct patient {
@@ -45,7 +46,7 @@ int main() {
             system("cls");
             cin.ignore();
             cout << "Enter patient's name: ";
-            getline(cin,name);
+            getline(cin, name);
             cout << "Searching...\n";
             if (search(name) != -1) {
                 cout << "Patient found!\n\n";
@@ -59,7 +60,7 @@ int main() {
             system("cls");
             cin.ignore();
             cout << "Enter patient's name: ";
-            getline(cin,name);
+            getline(cin, name);
             cout << "\nSearching...\n";
             if (search(name) != -1) {
                 int index = search(name);
@@ -78,15 +79,15 @@ int main() {
                     case 2:
                         cin.ignore();
                         cout << "Enter new name: ";
-                        getline(cin,name);
-                        name[0]=char(toupper(name[0]));
+                        getline(cin, name);
+                        name[0] = char(toupper(name[0]));
                         records[index].name = name;
                         cout << "\nChanged successfully!\n";
                         break;
                     case 3:
                         cout << "Enter new gender: ";
                         cin >> gender;
-                        records[index].gender = (gender[0]=='M'?"Male":"Female");
+                        records[index].gender = (gender[0] == 'M' ? "Male" : "Female");
                         cout << "\nChanged successfully!\n";
                         break;
                     case 4:
@@ -107,7 +108,7 @@ int main() {
             system("cls");
             cin.ignore();
             cout << "Enter patient's name: ";
-            getline(cin,name);
+            getline(cin, name);
             cout << "Searching...\n";
             char confirmation;
             if (search(name) != -1) {
@@ -161,7 +162,7 @@ void display(int index) {
 }
 
 int search(string &name) {
-    name[0]=char(toupper(name[0]));
+    name[0] = char(toupper(name[0]));
     for (int i = 0; i < records.size(); i++) {
         if (records[i].name == name) {
             return i;
@@ -193,16 +194,16 @@ void patient_input_details() {
     cout << "\nEnter patient's details:\n";
     cin.ignore();
     cout << "Name: ";
-    getline(cin,name);
-    name[0]=char(toupper(name[0]));
+    getline(cin, name);
+    name[0] = char(toupper(name[0]));
     cout << "Age: ";
     cin >> age;
     cin.ignore();
     cout << "Disease: ";
-    getline(cin,disease);
+    getline(cin, disease);
     cout << "gender[M/F]: ";
     cin >> gender;
-    gender=(gender[0]=='m'?"Male":"Female");
+    gender = (gender[0] == 'm' ? "Male" : "Female");
 
     patient newPatient = {age, name, disease, gender};
     records.push_back(newPatient);
